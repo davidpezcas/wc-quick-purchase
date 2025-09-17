@@ -1,0 +1,181 @@
+/* CUSTOM CSS */
+
+/* Botón cerrar */
+.wcqp-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.wcqp-attribute-group {
+  margin-bottom: 10px;
+}
+.wcqp-attribute-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.wcqp-attribute-group select {
+  width: 100%;
+  padding: 5px;
+}
+.wcqp-price {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  white-space: normal; /* Permite que el texto haga salto de línea si es muy largo */
+}
+#wcqp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+#wcqp-form label {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 0px;
+}
+
+#wcqp-form input {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.wcqp-submit {
+  background-color: #0071a1;
+  color: #fff;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.wcqp-submit:hover {
+  background-color: #005f85;
+}
+#wc-quick-purchase-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.wcqp-popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 95%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  font-family: Arial, sans-serif;
+}
+
+.wcqp-close {
+  float: right;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.wcqp-option {
+  border: 2px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.wcqp-option.selected {
+  border-color: #28a745;
+  background-color: #eaffea;
+}
+
+.wcqp-discount {
+  background: orange;
+  color: #fff;
+  padding: 2px 6px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.wcqp-note {
+  color: red;
+  font-size: 12px;
+}
+
+.wcqp-submit {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+h3.wcqp-title {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+p.wcqp-hint {
+  font-size: 14px;
+  color: red;
+  font-weight: 500;
+  text-align: center;
+}
+.wcqp-attribute-group label {
+  font-size: 13px;
+}
+.wcqp-total {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-top: 5px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.wcqp-qty-label {
+  margin-top: 10px;
+  display: block;
+  font-weight: 500;
+  font-size: 14px;
+}
+.wcqp-row {
+  display: flex;
+  gap: 8px; /* Espacio entre campos */
+}
+
+.wcqp-field {
+  flex: 1; /* Ambos campos ocupan el mismo ancho */
+}
+
+.wcqp-field label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.wcqp-field input {
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+@media (max-width: 480px) {
+  .wcqp-row {
+    flex-direction: column;
+  }
+}
