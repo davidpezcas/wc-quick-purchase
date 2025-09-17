@@ -56,8 +56,12 @@ jQuery(document).ready(function ($) {
 
     const selectedAttributes = {};
     $(".wcqp-attr-select").each(function () {
-      const attrName = $(this).attr("name");
-      const attrValue = $(this).val();
+      let attrName = $(this).attr("name").toLowerCase().trim();
+      if (!attrName.startsWith("pa_")) {
+        attrName = "pa_" + attrName; // WooCommerce usa prefijo pa_
+      }
+
+      const attrValue = $(this).val().toLowerCase().trim();
       if (attrValue) selectedAttributes[attrName] = attrValue;
     });
 
@@ -160,8 +164,11 @@ jQuery(document).ready(function ($) {
   attributesContainer.on("change", ".wcqp-attr-select", function () {
     const selected = {};
     $(".wcqp-attr-select").each(function () {
-      const name = $(this).attr("name");
-      const value = $(this).val();
+      let name = $(this).attr("name").toLowerCase().trim();
+      if (!name.startsWith("pa_")) {
+        name = "pa_" + name;
+      }
+      const value = $(this).val().toLowerCase().trim();
       if (value) selected[name] = value;
     });
 
