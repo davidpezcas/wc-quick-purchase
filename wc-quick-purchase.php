@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WC Quick Purchase
  * Description: Añade un botón "Compra rápida" a WooCommerce para pedidos rápidos vía WhatsApp y creación automática en WooCommerce.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: David Perez
  * Author URI:  https://github.com/davidpezcas
  * Plugin URI:  https://github.com/davidpezcas/wc-quick-purchase
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Definir constante de versión
 if ( ! defined( 'WC_QUICK_PURCHASE_VERSION' ) ) {
-    define( 'WC_QUICK_PURCHASE_VERSION', '1.0.0' );
+    define( 'WC_QUICK_PURCHASE_VERSION', '1.0.1' );
 }
 
 define( 'WC_QUICK_PURCHASE_PATH', plugin_dir_path( __FILE__ ) );
