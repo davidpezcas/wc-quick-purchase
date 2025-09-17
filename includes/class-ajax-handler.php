@@ -64,17 +64,22 @@ class WCQP_Ajax {
         ]);
     }
 
-    private function find_matching_variation_id($product, $attributes) {
-        foreach ($product->get_available_variations() as $variation) {
+    function find_matching_variation_id( $product, $attributes ) {
+        foreach ( $product->get_available_variations() as $variation ) {
             $match = true;
-            foreach ($attributes as $key => $value) {
-                if ($variation['attributes']['attribute_' . $key] !== $value) {
+            foreach ( $attributes as $key => $value ) {
+                // Normaliza claves y valores
+                $expected = strtolower( trim( $variation['attributes'][ 'attribute_' . $key ] ) );
+                $given    = strtolower( trim( $value ) );
+
+                if ( $expected !== $given ) {
                     $match = false;
                     break;
                 }
             }
-            if ($match) return $variation['variation_id'];
+            if ( $match ) return $variation['variation_id'];
         }
         return 0;
     }
+
 }
