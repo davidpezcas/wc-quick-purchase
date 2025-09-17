@@ -67,19 +67,32 @@ class WCQP_Ajax {
     function find_matching_variation_id( $product, $attributes ) {
         foreach ( $product->get_available_variations() as $variation ) {
             $match = true;
+
             foreach ( $attributes as $key => $value ) {
-                // Normaliza claves y valores
-                $expected = strtolower( trim( $variation['attributes'][ 'attribute_' . $key ] ) );
-                $given    = strtolower( trim( $value ) );
+                // Normaliza clave: asegura prefijo pa_
+                $normalized_key = strpos( $key, 'pa_' ) === 0 ? $key : 'pa_' . sanitize_title( $key );
+
+                // WooCommerce guarda atributos como "attribute_pa_color"
+                $variation_attr_key = 'attribute_' . $normalized_key;
+
+                // Normaliza valores (slugs en minúsculas)
+                $expected = isset( $variation['attributes'][$variation_attr_key] )
+                    ? strtolower( trim( $variation['attributes'][$variation_attr_key] ) )
+                    : '';
+                $given = strtolower( trim( sanitize_title( $value ) ) );
 
                 if ( $expected !== $given ) {
                     $match = false;
                     break;
                 }
             }
-            if ( $match ) return $variation['variation_id'];
+
+            if ( $match ) {
+                return $variation['variation_id'];
+            }
         }
-        return 0;
+
+        return 0; // No encontrada
     }
 
 }
