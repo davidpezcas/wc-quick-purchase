@@ -35,9 +35,14 @@ jQuery(document).ready(function ($) {
     console.log("Variaciones disponibles:", window.wcqpData.variations);
 
     return window.wcqpData.variations.find((variation) => {
-      return Object.keys(selected).every(
-        (attr) => variation.attributes[`attribute_${attr}`] === selected[attr]
-      );
+      return Object.keys(selected).every((attr) => {
+        const key = `attribute_${attr}`; // attr ya viene como "pa_color"
+        const expected = (variation.attributes[key] || "").toLowerCase().trim();
+        const given = (selected[attr] || "").toLowerCase().trim();
+
+        console.log(`Comparando ${key}:`, expected, "vs", given);
+        return expected === given;
+      });
     });
   }
 
@@ -171,6 +176,12 @@ jQuery(document).ready(function ($) {
       const value = $(this).val().toLowerCase().trim();
       if (value) selected[name] = value;
     });
+
+    console.log("Atributos seleccionados:", selected);
+    console.log(
+      "Variaciones originales:",
+      window.wcqpData.variations.map((v) => v.attributes)
+    );
 
     const variation = findMatchingVariation(selected);
     console.log("Variación encontrada:", variation);
