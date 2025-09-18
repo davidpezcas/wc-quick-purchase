@@ -1,5 +1,4 @@
 /* CUSTOM CSS */
-
 /* Botón cerrar */
 .wcqp-close {
   position: absolute;
@@ -10,6 +9,7 @@
 }
 .wcqp-attribute-group {
   margin-bottom: 10px;
+  width: 100%;
 }
 .wcqp-attribute-group label {
   display: block;
@@ -25,7 +25,7 @@
   font-size: 16px;
   font-weight: bold;
   color: #333;
-  white-space: normal; /* Permite que el texto haga salto de línea si es muy largo */
+  white-space: normal;
 }
 #wcqp-form {
   display: flex;
@@ -33,19 +33,16 @@
   gap: 10px;
   margin-top: 15px;
 }
-
 #wcqp-form label {
   font-weight: bold;
   font-size: 14px;
   margin-bottom: 0px;
 }
-
 #wcqp-form input {
   padding: 6px 8px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
-
 .wcqp-submit {
   background-color: #0071a1;
   color: #fff;
@@ -56,7 +53,6 @@
   font-weight: bold;
   transition: background-color 0.2s ease;
 }
-
 .wcqp-submit:hover {
   background-color: #005f85;
 }
@@ -69,24 +65,20 @@
   align-items: center;
   z-index: 9999;
 }
-
 .wcqp-popup-content {
   background: #fff;
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
-  width: 95%;
-  max-width: 420px;
+  width: 100%;
+  max-width: 450px;
   max-height: 90vh;
   overflow-y: auto;
-  font-family: Arial, sans-serif;
 }
-
 .wcqp-close {
   float: right;
   cursor: pointer;
   font-size: 20px;
 }
-
 .wcqp-option {
   border: 2px solid #ccc;
   padding: 10px;
@@ -94,12 +86,10 @@
   border-radius: 8px;
   cursor: pointer;
 }
-
 .wcqp-option.selected {
   border-color: #28a745;
   background-color: #eaffea;
 }
-
 .wcqp-discount {
   background: orange;
   color: #fff;
@@ -107,12 +97,10 @@
   font-size: 12px;
   border-radius: 4px;
 }
-
 .wcqp-note {
   color: red;
   font-size: 12px;
 }
-
 .wcqp-submit {
   display: block;
   width: 100%;
@@ -142,7 +130,7 @@ p.wcqp-hint {
 }
 .wcqp-total {
   font-weight: bold;
-  font-size: 1.1em;
+  font-size: 16px;
   margin-top: 5px;
   text-align: center;
   margin-bottom: 5px;
@@ -155,25 +143,53 @@ p.wcqp-hint {
 }
 .wcqp-row {
   display: flex;
-  gap: 8px; /* Espacio entre campos */
+  gap: 8px;
 }
-
 .wcqp-field {
-  flex: 1; /* Ambos campos ocupan el mismo ancho */
+  flex: 1;
 }
-
 .wcqp-field label {
   display: block;
   font-weight: 500;
   margin-bottom: 5px;
 }
-
 .wcqp-field input {
-  width: 90%;
+  width: 92%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+.wcqp-attributes {
+  display: flex;
+  gap: 10px;
+}
+.group-attributes {
+  display: block;
+  background-color: #9af7e5;
+  padding: 10px;
+  border: 2px solid #387166;
+  border-radius: 10px;
+}
+.content-attributes {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+}
+.wcqp-qty input {
+  width: 98%;
+  height: 28px;
+  border-radius: 6px;
+}
+.wcqp-popup-img {
+  max-width: 100%;
+  width: 50px;
+  height: auto;
+  margin-bottom: 0;
+  border-radius: 8px;
+  border: 2px solid #797979;
+}
+
 @media (max-width: 480px) {
   .wcqp-row {
     flex-direction: column;

@@ -33,17 +33,43 @@ class WCQP_Admin {
         );
     }
 
-    /**Renderizar la página del plugin */
+    /** Renderizar la página del plugin */
     public function mpb_render_admin_page() {
-        if ( isset($_POST['mpb_campo']) ) {
+        // Guardar los datos si se envió el formulario
+        if ( isset($_POST['mpb_guardar']) ) {
             if ( ! current_user_can('manage_options') ) return;
             check_admin_referer('mpb_guardar_datos');
-            $valor = sanitize_text_field($_POST['mpb_campo']);
-            update_option('mpb_campo', $valor);
+
+            // Campos
+            $campos = [
+                'mpb_campo'            => 'Número de WhatsApp',
+                'mpb_texto_boton'      => 'Texto del botón',
+                'mpb_color_boton'      => 'Color del botón',
+                'mpb_titulo_popup'     => 'Título del popup',
+                'mpb_subtitulo_popup'  => 'Subtítulo del popup',
+                'mpb_texto_precio'     => 'Texto antes del precio total'
+            ];
+
+            foreach ( $campos as $key => $label ) {
+                if ( $key === 'mpb_color_boton' ) {
+                    $valor = sanitize_hex_color($_POST[$key]);
+                } else {
+                    $valor = sanitize_text_field($_POST[$key]);
+                }
+                update_option($key, $valor);
+            }
+
             echo '<div class="updated"><p>Datos guardados.</p></div>';
         }
 
-        $valor_guardado = get_option('mpb_campo', '');
+        // Obtener valores guardados
+        $valor_campo           = get_option('mpb_campo', '');
+        $valor_texto_boton     = get_option('mpb_texto_boton', '');
+        $valor_color_boton     = get_option('mpb_color_boton', '#000000');
+        $valor_titulo_popup    = get_option('mpb_titulo_popup', '');
+        $valor_subtitulo_popup = get_option('mpb_subtitulo_popup', '');
+        $valor_texto_precio    = get_option('mpb_texto_precio', '');
+
         ?>
         <div class="wrap">
             <h1>WC Quick Purchase</h1>
@@ -51,15 +77,44 @@ class WCQP_Admin {
                 <?php wp_nonce_field('mpb_guardar_datos'); ?>
                 <table class="form-table">
                     <tr valign="top">
-                        <th scope="row">Número de Whatsapp</th>
+                        <th scope="row">Número de WhatsApp</th>
                         <td>
-                            <input type="text" name="mpb_campo"
-                                   value="<?php echo esc_attr($valor_guardado); ?>"
-                                   size="50">
+                            <input type="text" name="mpb_campo" value="<?php echo esc_attr($valor_campo); ?>" size="50">
+                            <span>Escribe el numero con el indicativo de tu pais sin el signo "+"</span>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row">Texto del botón</th>
+                        <td>
+                            <input type="text" name="mpb_texto_boton" value="<?php echo esc_attr($valor_texto_boton); ?>" size="50">
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row">Color del botón</th>
+                        <td>
+                            <input type="color" name="mpb_color_boton" value="<?php echo esc_attr($valor_color_boton); ?>">
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row">Título del popup</th>
+                        <td>
+                            <input type="text" name="mpb_titulo_popup" value="<?php echo esc_attr($valor_titulo_popup); ?>" size="50">
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row">Subtítulo del popup</th>
+                        <td>
+                            <input type="text" name="mpb_subtitulo_popup" value="<?php echo esc_attr($valor_subtitulo_popup); ?>" size="50">
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row">Texto antes del precio total</th>
+                        <td>
+                            <input type="text" name="mpb_texto_precio" value="<?php echo esc_attr($valor_texto_precio); ?>" size="50">
                         </td>
                     </tr>
                 </table>
-                <?php submit_button('Guardar'); ?>
+                <?php submit_button('Guardar', 'primary', 'mpb_guardar'); ?>
             </form>
         </div>
         <?php

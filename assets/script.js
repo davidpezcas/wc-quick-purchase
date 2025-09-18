@@ -24,7 +24,18 @@ jQuery(document).ready(function ($) {
         $("<option>").text(`Selecciona ${label}`).attr("value", "")
       );
 
-      options.forEach((option) => {
+      // Filtrar solo opciones que tengan stock
+      const inStockOptions = options.filter((option) => {
+        return window.wcqpData.variations.some((variation) => {
+          const key = `attribute_${attrName}`;
+          return (
+            (variation.attributes[key] || "").toLowerCase() ===
+              option.toLowerCase() && variation.is_in_stock
+          );
+        });
+      });
+
+      inStockOptions.forEach((option) => {
         select.append($("<option>").attr("value", option).text(option));
       });
 
