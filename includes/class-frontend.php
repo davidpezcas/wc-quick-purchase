@@ -62,6 +62,7 @@ class WCQP_Frontend {
         <?php
         $texto_boton     = get_option('mpb_texto_boton', 'Comprar');
         $color_boton     = get_option('mpb_color_boton', '#000000');
+        $color_text_boton = get_option('mpb_color_text_boton', '#FFFFFF');
         $titulo_popup    = get_option('mpb_titulo_popup', 'Título predeterminado');
         $subtitulo_popup = get_option('mpb_subtitulo_popup', 'Subtítulo predeterminado');
         $texto_precio    = get_option('mpb_texto_precio', '');
@@ -78,7 +79,7 @@ class WCQP_Frontend {
                             <?php if ( $imagen_destacada ): ?>
                                 <img src="<?php echo esc_url($imagen_destacada); ?>" alt="<?php echo esc_attr( get_the_title( $product->get_id() ) ); ?>" class="wcqp-popup-img">
                             <?php endif; ?>
-                            <h3 class="wcqp-product-title" style="margin:0;"><?php echo esc_html( $product->get_name() ); ?></h3>
+                            <h4 class="wcqp-product-title" style="margin:0;"><?php echo esc_html( $product->get_name() ); ?></h4>
                         </div>
 
                         <div class="price-product-popup">
@@ -105,14 +106,16 @@ class WCQP_Frontend {
                         </div>
                     </div>
 
-                    <label for="wcqp-phone">WhatsApp *</label>
-                    <input type="tel" id="wcqp-phone" name="phone" placeholder="Ej: 300 965 11 22" required>
-
+                    <div class="wcqp-campo">
+                        <label for="wcqp-phone">WhatsApp *</label>
+                        <input type="tel" id="wcqp-phone" name="phone" placeholder="Ej: 300 965 11 22" required>
+                    </div>
                     <p class="wcqp-hint"><?php echo esc_html($subtitulo_popup); ?></p>
 
-                    <label for="wcqp-address">Dirección *</label>
-                    <input type="text" id="wcqp-address" name="address" placeholder="Ej: Calle12 #34-65" required>
-
+                    <div class="wcqp-campo">
+                        <label for="wcqp-address">Dirección *</label>
+                        <input type="text" id="wcqp-address" name="address" placeholder="Ej: Calle12 #34-65" required>
+                    </div>
                     <div class="wcqp-row">
                         <div class="wcqp-field">
                             <label for="wcqp-state">Departamento *</label>
@@ -123,8 +126,10 @@ class WCQP_Frontend {
                             <input type="text" id="wcqp-city" name="city" placeholder="Barranquilla" required>
                         </div>
                     </div>
-                    <label for="wcqp-email">Correo electrónico</label>
-                    <input type="email" id="wcqp-email" name="email" placeholder="tucorreo@correo.com">
+                    <div class="wcqp-campo">
+                        <label for="wcqp-email">Correo electrónico</label>
+                        <input type="email" id="wcqp-email" name="email" placeholder="tucorreo@correo.com" required>
+                    </div>
 
                     <p class="wcqp-total"><?php echo esc_html($texto_precio); ?> 
                         <span id="wcqp-total-amount"><?php echo wp_kses_post($product->get_price_html()); ?></span>
@@ -132,8 +137,7 @@ class WCQP_Frontend {
 
                     <input type="hidden" id="wcqp-total-input" name="total" value="0">
 
-
-                    <button type="submit" class="wcqp-submit" style="background-color: <?php echo esc_attr($color_boton); ?>;">
+                    <button type="submit" class="wcqp-submit" style="background-color: <?php echo esc_attr($color_boton); ?>; color: <?php echo esc_attr($color_text_boton); ?>;">
                         <?php echo esc_html($texto_boton); ?>
                     </button>
                 </form>

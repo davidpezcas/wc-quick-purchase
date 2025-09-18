@@ -37,6 +37,7 @@
   font-weight: bold;
   font-size: 14px;
   margin-bottom: 0px;
+  line-height: 17px;
 }
 #wcqp-form input {
   padding: 6px 8px;
@@ -47,8 +48,8 @@
   background-color: #0071a1;
   color: #fff;
   padding: 8px;
-  border: none;
-  border-radius: 6px;
+  border: none !important;
+  border-radius: 6px !important;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.2s ease;
@@ -67,10 +68,10 @@
 }
 .wcqp-popup-content {
   background: #fff;
-  padding: 30px;
+  padding: 24px;
   border-radius: 10px;
   width: 100%;
-  max-width: 450px;
+  max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
 }
@@ -107,8 +108,8 @@
   padding: 12px;
   background: #28a745;
   color: #fff;
-  border: none;
-  border-radius: 8px;
+  border: none !important;
+  border-radius: 8px !important;
   font-weight: bold;
   font-size: 16px;
   cursor: pointer;
@@ -137,6 +138,7 @@ p.wcqp-hint {
 }
 .wcqp-qty-label {
   margin-top: 10px;
+  margin-bottom: 10px;
   display: block;
   font-weight: 500;
   font-size: 14px;
@@ -175,21 +177,30 @@ p.wcqp-hint {
   align-content: center;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
+}
+h4.wcqp-product-title {
+  font-size: 16px;
+  font-weight: 600;
 }
 .wcqp-qty input {
   width: 98%;
-  height: 28px;
-  border-radius: 6px;
+  height: 35px;
+  border-radius: 6px !important;
 }
 .wcqp-popup-img {
   max-width: 100%;
   width: 50px;
-  height: auto;
+  height: 50px !important;
   margin-bottom: 0;
   border-radius: 8px;
   border: 2px solid #797979;
 }
-
+.wcqp-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
 @media (max-width: 480px) {
   .wcqp-row {
     flex-direction: column;

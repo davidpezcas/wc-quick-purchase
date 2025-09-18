@@ -45,6 +45,7 @@ class WCQP_Admin {
                 'mpb_campo'            => 'Número de WhatsApp',
                 'mpb_texto_boton'      => 'Texto del botón',
                 'mpb_color_boton'      => 'Color del botón',
+                'mpb_color_text_boton' => 'Color del texto del botón',
                 'mpb_titulo_popup'     => 'Título del popup',
                 'mpb_subtitulo_popup'  => 'Subtítulo del popup',
                 'mpb_texto_precio'     => 'Texto antes del precio total'
@@ -53,7 +54,9 @@ class WCQP_Admin {
             foreach ( $campos as $key => $label ) {
                 if ( $key === 'mpb_color_boton' ) {
                     $valor = sanitize_hex_color($_POST[$key]);
-                } else {
+                }if ( $key === 'mpb_color_text_boton') {
+                    $valor = sanitize_hex_color($_POST[$key]);
+                }else {
                     $valor = sanitize_text_field($_POST[$key]);
                 }
                 update_option($key, $valor);
@@ -66,6 +69,7 @@ class WCQP_Admin {
         $valor_campo           = get_option('mpb_campo', '');
         $valor_texto_boton     = get_option('mpb_texto_boton', '');
         $valor_color_boton     = get_option('mpb_color_boton', '#000000');
+        $valor_color_text_boton     = get_option('mpb_color_text_boton', '#FFFFFF');
         $valor_titulo_popup    = get_option('mpb_titulo_popup', '');
         $valor_subtitulo_popup = get_option('mpb_subtitulo_popup', '');
         $valor_texto_precio    = get_option('mpb_texto_precio', '');
@@ -93,6 +97,12 @@ class WCQP_Admin {
                         <th scope="row">Color del botón</th>
                         <td>
                             <input type="color" name="mpb_color_boton" value="<?php echo esc_attr($valor_color_boton); ?>">
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row">Color del texto del botón</th>
+                        <td>
+                            <input type="color" name="mpb_color_text_boton" value="<?php echo esc_attr($valor_color_text_boton); ?>">
                         </td>
                     </tr>
                     <tr valign="top">
