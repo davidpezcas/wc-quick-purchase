@@ -134,7 +134,7 @@ jQuery(document).ready(function ($) {
           // Variaciones seleccionadas
           const selectedAttributes = [];
           $(".wcqp-attr-select").each(function () {
-            const label = $(this).siblings("label").text(); // <-- cambio aquí
+            const label = $(this).siblings("label").text(); // <-- cambio aquí !!
             const value = $(this).val();
             if (value) selectedAttributes.push(`${label}: ${value}`);
           });
