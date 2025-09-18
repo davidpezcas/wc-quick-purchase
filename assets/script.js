@@ -32,18 +32,35 @@ jQuery(document).ready(function ($) {
 
   // Buscar la variación seleccionada según los atributos escogidos
   function findMatchingVariation(selected) {
-    console.log("Variaciones disponibles:", window.wcqpData.variations);
+    if (!window.wcqpData || !window.wcqpData.variations) return null;
 
-    return window.wcqpData.variations.find((variation) => {
-      return Object.keys(selected).every((attr) => {
-        const key = `attribute_${attr}`; // attr ya viene como "pa_color"
-        const expected = (variation.attributes[key] || "").toLowerCase().trim();
-        const given = (selected[attr] || "").toLowerCase().trim();
+    return (
+      window.wcqpData.variations.find((variation) => {
+        const isMatch = Object.keys(selected).every((attr) => {
+          const key = `attribute_${attr}`;
+          const expected = ((variation.attributes[key] || "") + "")
+            .toLowerCase()
+            .trim();
+          const given = ((selected[attr] || "") + "").toLowerCase().trim();
 
-        console.log(`Comparando ${key}:`, expected, "vs", given);
-        return expected === given;
-      });
-    });
+          console.log(`Comparando ${key}: "${expected}" vs "${given}"`);
+
+          return expected === given;
+        });
+
+        // Aquí imprimes la comparación completa de la variación con la selección
+        console.log(
+          "Comparando variación completa:",
+          variation.attributes,
+          "con selección:",
+          selected,
+          "→ Coincide?",
+          isMatch
+        );
+
+        return isMatch;
+      }) || null
+    );
   }
 
   //NUEVO: Captura de datos del formulario
