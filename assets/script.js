@@ -8,7 +8,10 @@ jQuery(document).ready(function ($) {
     const attributes = window.wcqpData.attributes;
 
     Object.keys(attributes).forEach((attrName) => {
-      const options = attributes[attrName];
+      // Asegurarse de que sea un array
+      const options = Array.isArray(attributes[attrName])
+        ? attributes[attrName]
+        : [];
       const label = attrName.replace("pa_", "").toUpperCase();
 
       const select = $("<select>")
