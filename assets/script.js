@@ -134,7 +134,7 @@ jQuery(document).ready(function ($) {
           // Variaciones seleccionadas
           const selectedAttributes = [];
           $(".wcqp-attr-select").each(function () {
-            const label = $(this).prev("label").text();
+            const label = $(this).siblings("label").text(); // <-- cambio aquí
             const value = $(this).val();
             if (value) selectedAttributes.push(`${label}: ${value}`);
           });
@@ -155,9 +155,6 @@ jQuery(document).ready(function ($) {
             `Direccion: ${address}%0A` +
             `Ciudad: ${city}%0A` +
             `Total pedido: ${total}`;
-
-          // Número quemado para WhatsApp (cámbialo por el tuyo)
-          //const whatsappNumber = "573168236599";
 
           // Número dinámico de WhatsApp desde WordPress
           const whatsappNumber = mpbData.whatsappNumber;
