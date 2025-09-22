@@ -5,7 +5,7 @@ class WCQP_Frontend {
 
     public function __construct() {
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
-        add_action('woocommerce_after_add_to_cart_button', [$this, 'add_quick_purchase_button']);
+        //add_action('woocommerce_after_add_to_cart_button', [$this, 'add_quick_purchase_button']);
         add_action('wp_footer', [$this, 'inject_popup']);
     }
 
@@ -33,11 +33,11 @@ class WCQP_Frontend {
         ));
     }
 
-    public function add_quick_purchase_button() {
+    /* public function add_quick_purchase_button() {
         global $product;
         if (! $product) return;
         echo '<button type="button" class="button wc-quick-purchase-btn" data-product-id="' . esc_attr($product->get_id()) . '">Compra rápida</button>';
-    }
+    } */
 
     public function inject_popup() {
         if (! is_product()) return;

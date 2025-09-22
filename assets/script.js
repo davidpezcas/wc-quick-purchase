@@ -242,7 +242,7 @@ jQuery(document).ready(function ($) {
   });
 
   // Abrir popup y renderizar atributos
-  $(".wc-quick-purchase-btn").on("click", function () {
+  $(".wcqp-boton-popup").on("click", function () {
     renderAttributes();
     priceDisplay.html(
       `Precio: ${
