@@ -123,7 +123,10 @@ jQuery(document).ready(function ($) {
       },
       success: function (response) {
         if (response.success) {
-          console.log("Pedido creado (test):", response.data);
+          console.log("Pedido creado(ok):", response.data);
+
+          // ID del pedido devuelto por PHP
+          //const orderId = response.data.order_id;
 
           // Datos para WhatsApp
           const productName =
@@ -155,6 +158,7 @@ jQuery(document).ready(function ($) {
             : "N/A";
 
           // Construir el mensaje con %0A para saltos de línea
+          /*
           const message =
             `Nuevo pedido rápido%0A` +
             `Producto: ${productName}%0A` +
@@ -166,15 +170,23 @@ jQuery(document).ready(function ($) {
             `Direccion: ${address}%0A` +
             `Ciudad: ${city}%0A` +
             `Total pedido: ${total}`;
+          */
 
           // Número dinámico de WhatsApp desde WordPress
-          const whatsappNumber = mpbData.whatsappNumber;
+          //const whatsappNumber = mpbData.whatsappNumber;
 
           // Abrir WhatsApp Web
+          /*
           const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
             decodeURIComponent(message)
           )}`;
           window.open(whatsappUrl, "_blank");
+          */
+
+          //const orderUrl = `/my-account/view-order/${orderId}/`;
+
+          // Redirigir al usuario al pedido recién creado
+          window.location.href = response.data.redirect_url;
 
           //Limpiar el formulario y cerrar popup
           $("#wcqp-form")[0].reset();

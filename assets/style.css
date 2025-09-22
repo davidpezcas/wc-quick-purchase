@@ -1,5 +1,11 @@
 /* CUSTOM CSS */
-/* Botón cerrar */
+button.button.wc-quick-purchase-btn {
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  margin-top: 16px;
+  cursor: pointer;
+}
 .wcqp-close {
   position: absolute;
   top: 10px;
@@ -200,6 +206,24 @@ h4.wcqp-product-title {
   display: flex;
   flex-direction: column;
   gap: 3px;
+}
+p.wcqp-alt-text {
+  margin: 0 auto;
+  font-size: 16px;
+}
+.wcqp-buttom {
+  display: block;
+  padding: 12px;
+  background: #28a745;
+  color: #fff;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 0;
+  text-decoration: none;
+  text-align: center;
 }
 @media (max-width: 480px) {
   .wcqp-row {

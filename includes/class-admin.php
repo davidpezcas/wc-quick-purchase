@@ -48,7 +48,11 @@ class WCQP_Admin {
                 'mpb_color_text_boton' => 'Color del texto del botón',
                 'mpb_titulo_popup'     => 'Título del popup',
                 'mpb_subtitulo_popup'  => 'Subtítulo del popup',
-                'mpb_texto_precio'     => 'Texto antes del precio total'
+                'mpb_texto_precio'     => 'Texto antes del precio total',
+                'mpb_background'       => 'Fondo',
+                'mpb_alt_text'         => 'Texto alternativo',
+                'mpb_alt_button_color' => 'Color Boton alternativo',
+                'mpb_alt_button_text'  => 'Texto del Boton alternativo'
             ];
 
             foreach ( $campos as $key => $label ) {
@@ -62,6 +66,15 @@ class WCQP_Admin {
                 update_option($key, $valor);
             }
 
+            //Guardar checkboxes como 1 o 0
+            update_option('wcqp_enable_alt_text', isset($_POST['wcqp_enable_alt_text']) ? 1 : 0);
+            update_option('wcqp_enable_alt_button', isset($_POST['wcqp_enable_alt_button']) ? 1 : 0);
+
+            // Guardar los valores de los campos dependientes
+            update_option('mpb_alt_text', sanitize_text_field($_POST['mpb_alt_text'] ?? ''));
+            update_option('mpb_alt_button_text', sanitize_text_field($_POST['mpb_alt_button_text'] ?? ''));
+            update_option('mpb_alt_button_color', sanitize_hex_color($_POST['mpb_alt_button_color'] ?? ''));
+
             echo '<div class="updated"><p>Datos guardados.</p></div>';
         }
 
@@ -73,6 +86,12 @@ class WCQP_Admin {
         $valor_titulo_popup    = get_option('mpb_titulo_popup', '');
         $valor_subtitulo_popup = get_option('mpb_subtitulo_popup', '');
         $valor_texto_precio    = get_option('mpb_texto_precio', '');
+        $valor_background      = get_option('mpb_background', '');
+
+        $valor_alt_text  = get_option('mpb_alt_text', '');
+        $valor_alt_button_color  = get_option('mpb_alt_button_color', '');
+        $valor_alt_button_text  = get_option('mpb_alt_button_text', '');
+
 
         ?>
         <div class="wrap">
@@ -123,10 +142,61 @@ class WCQP_Admin {
                             <input type="text" name="mpb_texto_precio" value="<?php echo esc_attr($valor_texto_precio); ?>" size="50">
                         </td>
                     </tr>
+                    <tr valign="top">
+                        <th scope="row">Fondo</th>
+                        <td>
+                            <input type="color" name="mpb_background" value="<?php echo esc_attr($valor_background); ?>">
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row">Texto alternativo</th>
+                        <td>
+                            <label>
+                            <input type="checkbox" id="wcqp_enable_alt_text" name="wcqp_enable_alt_text" value="1" <?php checked( get_option('wcqp_enable_alt_text'), 1 ); ?>>
+                            Agregar texto alternativo
+                            </label>
+                            <div id="mpb_alt_text_container" style="margin-top:8px; display:<?php echo get_option('wcqp_enable_alt_text') ? 'block' : 'none'; ?>;">
+                            <input type="text" name="mpb_alt_text" value="<?php echo esc_attr($valor_alt_text); ?>" class="regular-text" placeholder="Texto alternativo">
+                            </div>
+                        </td>
+                        </tr>
+
+                        <tr valign="top">
+                        <th scope="row">Botón alternativo</th>
+                        <td>
+                            <label>
+                            <input type="checkbox" id="wcqp_enable_alt_button" name="wcqp_enable_alt_button" value="1" <?php checked( get_option('wcqp_enable_alt_button'), 1 ); ?>>
+                            Usar botón alternativo
+                            </label>
+                            <div id="mpb_alt_button_container" style="margin-top:8px; display:<?php echo get_option('wcqp_enable_alt_button') ? 'block' : 'none'; ?>;">
+                            <input type="text" name="mpb_alt_button_text" value="<?php echo esc_attr($valor_alt_button_text); ?>" class="regular-text" placeholder="Texto del botón alternativo"><br><br>
+                            <label>Color del botón:</label><br>
+                            <input type="color" name="mpb_alt_button_color" value="<?php echo esc_attr($valor_alt_button_color); ?>">
+                            </div>
+                        </td>
+                    </tr>
                 </table>
                 <?php submit_button('Guardar', 'primary', 'mpb_guardar'); ?>
             </form>
         </div>
+
+        <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const altTextCheckbox = document.getElementById('wcqp_enable_alt_text');
+  const altTextContainer = document.getElementById('mpb_alt_text_container');
+  const altBtnCheckbox = document.getElementById('wcqp_enable_alt_button');
+  const altBtnContainer = document.getElementById('mpb_alt_button_container');
+
+  altTextCheckbox.addEventListener('change', () => {
+    altTextContainer.style.display = altTextCheckbox.checked ? 'block' : 'none';
+  });
+
+  altBtnCheckbox.addEventListener('change', () => {
+    altBtnContainer.style.display = altBtnCheckbox.checked ? 'block' : 'none';
+  });
+});
+</script>
+
         <?php
     }
 }

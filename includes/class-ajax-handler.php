@@ -25,6 +25,10 @@ class WCQP_Ajax {
         $attributes = (array) ($_POST['attributes'] ?? []);
 
         $order   = wc_create_order();
+
+        //origen del pedido
+        $order->set_created_via('Contraentrega');
+
         $product = wc_get_product($product_id);
 
         if ($product->is_type('variable') && ! empty($attributes)) {
@@ -54,14 +58,29 @@ class WCQP_Ajax {
         $order->update_meta_data('_wcqp_state', $state);
         $order->update_meta_data('_wcqp_email', $email);
 
+        //origen personalizado
+        $order->update_meta_data('_wcqp_origin', 'Contraentrega');
+
         $order->set_status('pending');
         $order->calculate_totals();
         $order->save();
 
+        //Construir URL de confirmación del pedido
+        $order_id  = $order->get_id();
+        $order_key = $order->get_order_key();
+        $redirect_url = wc_get_endpoint_url(
+            'order-received',
+            $order_id,
+            wc_get_checkout_url()
+        );
+        $redirect_url = add_query_arg('key', $order_key, $redirect_url);
+
         wp_send_json_success([
-            'message'  => 'Pedido creado',
-            'order_id' => $order->get_id(),
+            'message'       => 'Pedido creado',
+            'order_id'      => $order_id,
+            'redirect_url'  => $redirect_url, // Devolver la URL al JS
         ]);
+
     }
 
     function find_matching_variation_id( $product, $attributes ) {

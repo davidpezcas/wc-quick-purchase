@@ -66,6 +66,15 @@ class WCQP_Frontend {
         $titulo_popup    = get_option('mpb_titulo_popup', 'Título predeterminado');
         $subtitulo_popup = get_option('mpb_subtitulo_popup', 'Subtítulo predeterminado');
         $texto_precio    = get_option('mpb_texto_precio', '');
+        $background      = get_option('mpb_background', '');
+
+        // Recuperar las opciones  
+        $enable_alt_text    = get_option('wcqp_enable_alt_text', 0);  
+        $enable_alt_button  = get_option('wcqp_enable_alt_button', 0);  
+        $alt_text           = get_option('mpb_alt_text', '');  
+        $alt_button_color   = get_option('mpb_alt_button_color', '#000000');  
+        $alt_button_text    = get_option('mpb_alt_button_text', '');  
+
         ?>
         
         <div id="wc-quick-purchase-popup" class="wcqp-popup" style="display:none;">
@@ -73,7 +82,7 @@ class WCQP_Frontend {
                 <span class="wcqp-close">&times;</span>
                 <h3 class="wcqp-title"><?php echo esc_html($titulo_popup); ?></h3>
 
-                <div class="group-attributes">
+                <div class="group-attributes" style="background-color: <?php echo esc_attr($background); ?>;">
                     <div class="content-attributes">
                         <div class="product-header-popup" style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
                             <?php if ( $imagen_destacada ): ?>
@@ -135,11 +144,24 @@ class WCQP_Frontend {
                         <span id="wcqp-total-amount"><?php echo wp_kses_post($product->get_price_html()); ?></span>
                     </p>
 
+                    <!-- Texto alternativo: solo si el check está activo -->  
+                    <?php if ( $enable_alt_text && !empty($alt_text) ) : ?>  
+                        <p class="wcqp-alt-text"><?php echo esc_html($alt_text); ?></p>  
+                    <?php endif; ?>  
+
                     <input type="hidden" id="wcqp-total-input" name="total" value="0">
 
                     <button type="submit" class="wcqp-submit" style="background-color: <?php echo esc_attr($color_boton); ?>; color: <?php echo esc_attr($color_text_boton); ?>;">
                         <?php echo esc_html($texto_boton); ?>
                     </button>
+
+                    <!-- Botón alternativo: solo si el check está activo -->  
+                    <?php if ( $enable_alt_button && !empty($alt_button_text) ) : ?>  
+                        <a href="#" class="wcqp-buttom" style="background-color: <?php echo esc_attr($alt_button_color); ?>;">  
+                            <?php echo esc_html($alt_button_text); ?>  
+                        </a>  
+                    <?php endif; ?> 
+
                 </form>
             </div>
         </div>
