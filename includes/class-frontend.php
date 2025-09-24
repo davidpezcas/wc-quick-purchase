@@ -7,6 +7,24 @@ class WCQP_Frontend {
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
         //add_action('woocommerce_after_add_to_cart_button', [$this, 'add_quick_purchase_button']);
         add_action('wp_footer', [$this, 'inject_popup']);
+
+        //Nuevo: ocultar botones en página de pedido recibido para pedidos de Contraentrega
+        add_action('template_redirect', [$this, 'wcqp_remove_order_buttons']);
+
+        
+    }
+
+    public function wcqp_remove_order_buttons() {
+        if ( function_exists('is_order_received_page') && is_order_received_page() && isset($_GET['key']) ) {
+            $order_id = wc_get_order_id_by_order_key( sanitize_text_field($_GET['key']) );
+            $order    = wc_get_order($order_id);
+
+            if ( $order && $order->get_meta('_wcqp_origin') === 'Contraentrega' ) {
+                // Elimina los botones de WooCommerce SOLO para pedidos de tu plugin
+                remove_action('woocommerce_order_details_after_order_table', 'woocommerce_order_again_button');
+                remove_action('woocommerce_order_details_after_order_table', 'woocommerce_order_details_table_actions');
+            }
+        }
     }
 
     public function enqueue_assets() {

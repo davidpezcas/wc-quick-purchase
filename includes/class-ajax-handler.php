@@ -26,7 +26,8 @@ class WCQP_Ajax {
 
         $order   = wc_create_order();
 
-        //origen del pedido
+        // Origen para WooCommerce (esto rellena el campo "Atribución de Pedido → Origen")
+        $order->update_meta_data('_order_source', 'Contraentrega');
         $order->set_created_via('Contraentrega');
 
         $product = wc_get_product($product_id);
@@ -57,13 +58,17 @@ class WCQP_Ajax {
         $order->update_meta_data('_wcqp_city', $city);
         $order->update_meta_data('_wcqp_state', $state);
         $order->update_meta_data('_wcqp_email', $email);
-
-        //origen personalizado
         $order->update_meta_data('_wcqp_origin', 'Contraentrega');
 
         $order->set_status('pending');
         $order->calculate_totals();
         $order->save();
+
+        // Reforzar metadatos después de guardar (opcional, para depuración)
+        update_post_meta($order->get_id(), '_order_source', 'Contraentrega');
+        update_post_meta($order->get_id(), '_wcqp_origin', 'Contraentrega');
+        error_log('Meta _order_source guardado: ' . get_post_meta($order->get_id(), '_order_source', true));
+
 
         //Construir URL de confirmación del pedido
         $order_id  = $order->get_id();

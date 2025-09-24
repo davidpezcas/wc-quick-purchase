@@ -158,7 +158,6 @@ jQuery(document).ready(function ($) {
             : "N/A";
 
           // Construir el mensaje con %0A para saltos de línea
-          /*
           const message =
             `Nuevo pedido rápido%0A` +
             `Producto: ${productName}%0A` +
@@ -170,18 +169,15 @@ jQuery(document).ready(function ($) {
             `Direccion: ${address}%0A` +
             `Ciudad: ${city}%0A` +
             `Total pedido: ${total}`;
-          */
 
           // Número dinámico de WhatsApp desde WordPress
-          //const whatsappNumber = mpbData.whatsappNumber;
+          const whatsappNumber = mpbData.whatsappNumber;
 
           // Abrir WhatsApp Web
-          /*
           const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
             decodeURIComponent(message)
           )}`;
           window.open(whatsappUrl, "_blank");
-          */
 
           //const orderUrl = `/my-account/view-order/${orderId}/`;
 

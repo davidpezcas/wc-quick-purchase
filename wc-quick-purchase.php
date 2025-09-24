@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WC Quick Purchase
  * Description: Añade un botón "Compra rápida" a WooCommerce para pedidos rápidos vía WhatsApp y creación automática en WooCommerce.
- * Version: 1.0.12
+ * Version: 1.0.13
  * Author: David Perez
  * Author URI:  https://github.com/davidpezcas
  * Plugin URI:  https://github.com/davidpezcas/wc-quick-purchase
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Definir constante de versión
 if ( ! defined( 'WC_QUICK_PURCHASE_VERSION' ) ) {
-    define( 'WC_QUICK_PURCHASE_VERSION', '1.0.12');
+    define( 'WC_QUICK_PURCHASE_VERSION', '1.0.13');
 }
 
 define( 'WC_QUICK_PURCHASE_PATH', plugin_dir_path( __FILE__ ) );
@@ -61,3 +61,26 @@ add_action( 'plugins_loaded', function() {
         });
     }
 });
+
+/**
+ * Forzar que WooCommerce muestre "Contraentrega" como Origen
+ * cuando el created_via sea nuestro slug.
+ */
+
+// Cambia el texto que aparece en la columna "Origen" en la lista de pedidos
+add_filter('woocommerce_admin_order_created_via', function($display, $order) {
+    if ($order && $order->get_created_via() === 'contraentrega') {
+        return 'Contraentrega';
+    }
+    return $display;
+}, 10, 2);
+
+// Opcional: Cambia también el origen que se muestra en la metabox de Order Attribution
+add_filter('woocommerce_order_attribution_source_name', function($source, $order) {
+    if ($order && $order->get_created_via() === 'contraentrega') {
+        return 'Contraentrega';
+    }
+    return $source;
+}, 10, 2);
+
+
