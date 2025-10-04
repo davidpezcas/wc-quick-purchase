@@ -182,7 +182,7 @@ jQuery(document).ready(function ($) {
           //const orderUrl = `/my-account/view-order/${orderId}/`;
 
           // Redirigir al usuario al pedido recién creado
-          window.location.href = response.data.redirect_url;
+          //window.location.href = response.data.redirect_url;
 
           //Limpiar el formulario y cerrar popup
           $("#wcqp-form")[0].reset();
